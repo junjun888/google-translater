@@ -14,12 +14,12 @@ public class Test {
         String result = googleApi.translate("神马",  "ja");
         System.out.println(result);
 
-//        transAndroidXml(googleApi);
+        transAndroidXml(googleApi);
 
     }
 
     static void transAndroidXml(GoogleApi googleApi) throws Exception{
-        String[] langs = {/*"ar","es","de","fr","ja",*/"ko",/*"zh-CN","zh-TW"*/};
+        String[] langs = {"ar","es","de","fr","ja","ko","zh-CN","zh-TW"};
 
         List<String> keys = new ArrayList<String>();
         List<String> vals = new ArrayList<String>();
