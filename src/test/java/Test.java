@@ -14,10 +14,56 @@ public class Test {
         String result = googleApi.translate("神马",  "ja");
         System.out.println(result);
 
-        transAndroidXml(googleApi);
+//        transAndroidXml(googleApi);
+        transText(googleApi);
 
     }
 
+    // 翻译普通文本
+    // 放到in.txt中，逐行翻译
+    static void transText(GoogleApi googleApi) throws Exception{
+        String[] langs = {"ar","es","de","fr","ja","ko","zh-CN","zh-TW"};
+
+        List<String> vals = new ArrayList<String>();
+
+        BufferedReader br = new BufferedReader(new FileReader("in.txt"));
+        String s;
+        while ((s = br.readLine()) != null) {
+            if (s.trim().length() == 0) {
+                vals.add("");
+            } else {
+                String val = s.trim();
+                vals.add(val);
+            }
+        }
+        br.close();
+
+        String path = "out.txt";
+        File file = new File(path);
+        if (file.exists()) file.delete();
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+        for (String lang : langs) {
+            log("trans..." + lang);
+            bw.append("\n\n--------" + lang + "------\n");
+
+            for (String val : vals) {
+                if (val.length() == 0) {
+                    bw.append("\r\n");
+                } else {
+                    String trans = googleApi.translate(val, lang);
+                    log(trans);
+                    bw.append(trans);
+                    bw.append("\n");
+                }
+            }
+        }
+        bw.close();
+    }
+
+    // 翻译Android xml文本
+    // 放到in.txt中，逐行翻译
+    // 格式：<string name="test">Test</string>
     static void transAndroidXml(GoogleApi googleApi) throws Exception{
         String[] langs = {"ar","es","de","fr","ja","ko","zh-CN","zh-TW"};
 
