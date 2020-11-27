@@ -19,6 +19,8 @@ public class GoogleApi {
 
     private Browser browser = null;
 
+    private String tkk;
+
     static {
         ScriptEngineManager maneger = new ScriptEngineManager();
         engine = maneger.getEngineByName("javascript");
@@ -96,7 +98,9 @@ public class GoogleApi {
             return null;
         }
 
-        String tkk = getTKK();
+        if (tkk == null) {
+            tkk = getTKK();
+        }
 
         if (StringUtils.isBlank(tkk)) {
             throw new RuntimeException("无法获取 tkk");
